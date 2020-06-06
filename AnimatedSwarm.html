@@ -1,4 +1,4 @@
-<!-- Code for D3 Swarm Plot tutorial from 
+<!-- Code for D3 Swarm Plot tutorial from
 https://www.chartfleau.com/tutorials/d3swarm -->
 
 <!DOCTYPE html>
@@ -12,8 +12,8 @@ https://www.chartfleau.com/tutorials/d3swarm -->
   <body></body>
 </html>
 <script>
-  const width = 1920;
-  const height = 1080;
+  const width = 1800;
+  const height = 800;
 
   let svg = d3
     .select("body")
@@ -23,7 +23,8 @@ https://www.chartfleau.com/tutorials/d3swarm -->
 
   d3.csv("data.csv").then((data) => {
     let sectors = Array.from(new Set(data.map((d) => d.Sector)));
-    let xCoords = sectors.map((d, i) => 150 + i * 150);
+    let xBand =  d3.scaleBand().domain(sectors).range([0,width]).paddingOuter(1);
+    let xCoords = sectors.map((d, i) => xBand(d));
     let xScale = d3.scaleOrdinal().domain(sectors).range(xCoords);
 
     let yScale = d3
